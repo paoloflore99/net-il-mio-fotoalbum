@@ -7,4 +7,10 @@
     <RootNamespace>net_il_mio_fotoalbum</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.30" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.30" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
 </Project>
