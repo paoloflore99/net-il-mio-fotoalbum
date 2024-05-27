@@ -8,12 +8,11 @@ namespace net_il_mio_fotoalbum
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                        var connectionString = builder.Configuration.GetConnectionString("FotoDbContextConnection") ?? throw new InvalidOperationException("Connection string 'FotoDbContextConnection' not found.");
+            
 
-                                    builder.Services.AddDbContext<FotoDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<FotoDbContext>();
 
-                                                builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<FotoDbContext>();
 
             // Add services to the container.
@@ -40,7 +39,7 @@ namespace net_il_mio_fotoalbum
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            app.MapRazorPages();
             app.Run();
         }
     }

@@ -9,7 +9,7 @@ namespace net_il_mio_fotoalbum.Data
         public string Titolo { get; set; }
         public string  Descrizione { get; set; }
         public bool Visibile { get; set; }
-        public List<Categorie> Categorielist { get; set; }
+        public List<Categorie>? Categorielist { get; set; }
 
         public Foto() { }
         public Foto(string titolo , string descrizione ,bool visibile)
