@@ -65,6 +65,17 @@ namespace net_il_mio_fotoalbum.Controllers
             if (!ModelState.IsValid)
             {
                 using FotoDbContext db = new FotoDbContext();
+                List<Categorie> categgoria = FotoManager.GetAllCategorie();
+                List<SelectListItem> selectList = new List<SelectListItem>();
+                foreach (var categ in categgoria)
+                {
+                    selectList.Add(new SelectListItem()
+                    {
+                        Text = categ.Name,
+                        Value = categ.Id.ToString()
+                    });
+                }
+                model.Categoria = selectList;
                 return View("Create" , model);
             }
             return null;
