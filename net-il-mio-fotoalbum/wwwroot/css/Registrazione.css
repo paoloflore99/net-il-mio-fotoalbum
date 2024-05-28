@@ -1,0 +1,109 @@
+/* Custom CSS for registration page */
+body {
+    background-color: #fafafa;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#registerForm {
+    background: #ffffff;
+    padding: 30px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+}
+
+    #registerForm h2 {
+        font-weight: 300;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.form-floating {
+    margin-bottom: 15px;
+}
+
+#registerSubmit {
+    margin-top: 20px;
+}
+
+.additional-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .additional-info p {
+        margin-bottom: 10px;
+    }
+
+    .additional-info a {
+        color: #3897f0;
+        text-decoration: none;
+    }
+
+        .additional-info a:hover {
+            text-decoration: underline;
+        }
+
+.external-login {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .external-login h3 {
+        font-weight: 300;
+        margin-bottom: 20px;
+    }
+
+    .external-login .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+/* Custom CSS for registration page */
+body {
+    background-color: #fafafa;
+}
+
+#registerFormContainer {
+    width: 350px;
+    border: 1px solid #e6e6e6;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+#registerForm h2 {
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-floating {
+    margin-bottom: 15px;
+}
+
+#registerSubmit {
+    margin-top: 20px;
+}
+
+#alreadyRegistered {
+    width: 350px;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+    #alreadyRegistered a {
+        color: #3897f0;
+        text-decoration: none;
+    }
+
+        #alreadyRegistered a:hover {
+            text-decoration: underline;
+        }

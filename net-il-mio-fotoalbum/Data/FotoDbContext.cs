@@ -6,8 +6,8 @@ namespace net_il_mio_fotoalbum.Data
 {
     public class FotoDbContext : IdentityDbContext<IdentityUser>
     {
-        DbSet<Foto> Foto { get; set; }
-        DbSet<Categorie> Categorie { get; set; }
+        public DbSet<Foto> Foto { get; set; }
+        public DbSet<Categorie>? Categorie { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

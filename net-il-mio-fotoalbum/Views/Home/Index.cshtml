@@ -1,18 +1,58 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="collapse navbar-collapse d-block" id="navbarNav">
-    <ul class="navbar-nav">
+@using net_il_mio_fotoalbum.Data;
+@model List<Foto>;
+
+<div class="left-sidebar d-flex flex-column text-white">
+    <div class="collapse navbar-collapse d-block" id="navbarNav">
+        <ul class="navbar-nav " id="colore">
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="@Url.Action("Index", "User")">Admin</a>
+                <a class="nav-link text-white" aria-current="page" href="@Url.Action("Index", "Home")"><i class="fa-solid fa-house"></i> Home</a>
         </li>
         <!-- code omitted -->
         <partial name="_LoginPartial" />
     </ul>
 </div>
 
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="text-white">
+    <div class="">
+        <h3>i post</h3>
+            <a class="text-white" href="@Url.Action("Create", "Home")"><i class="fa-solid fa-plus"></i></a>
+    </div>
 </div>
+    </div>
+
+
+<div class="main-content text-white bg-black">
+    <div class="container">
+        <h1>Benvenuti nella Pagina Principale</h1>
+        <p>Questo è il contenuto principale della pagina.</p>
+        <div class="row">
+            
+            @{
+                foreach (var foto in Model)
+                {
+                    <div class="col-md-4 photo-card">
+                        <div class="card">
+                            <!--<img src="@foto.Titolo" class="card-img-top" alt="@foto.Titolo">-->
+                            <div class="card-body">
+                                <h5 class="card-title">@foto.Titolo</h5>
+                                <p class="card-text">@foto.Descrizione</p>
+                                <a href="@Url.Action("PerId", "Pizza", new { id = foto.Id })" class="btn btn-info">Dettaglio pizza</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+
+
+
+</script>

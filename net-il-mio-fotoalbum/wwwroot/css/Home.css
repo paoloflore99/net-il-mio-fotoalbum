@@ -1,0 +1,27 @@
+.left-sidebar {
+    width: 230px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    overflow-y: auto;
+}
+
+.main-content {
+    margin-left: 230px;
+    padding: 20px;
+}
+
+.photo-card {
+    margin-bottom: 20px;
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+}
+
+.photo-card .card-body {
+    padding: 10px;
+}
