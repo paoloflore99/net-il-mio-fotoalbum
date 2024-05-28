@@ -58,14 +58,14 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Create" ,model);
         }
        
+
         [HttpPost]
         public IActionResult Create(FotoCategorieModel model)
         {
-            using FotoDbContext db = new FotoDbContext();
-            
             if (!ModelState.IsValid)
             {
-                return View("Create");
+                using FotoDbContext db = new FotoDbContext();
+                return View("Create" , model);
             }
             return null;
         }
