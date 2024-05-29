@@ -6,6 +6,7 @@ using net_il_mio_fotoalbum.Models;
 using System.Diagnostics;
 using net_il_mio_fotoalbum.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 namespace net_il_mio_fotoalbum.Controllers
 {
     public class HomeController : Controller
@@ -44,7 +45,9 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             return View(FotoManager.Detaglioma(Id));
         }
+
         [HttpGet]
+        [Authorize(Roles ="ADMIN")]
         public IActionResult Create()
         {
             FotoCategorieModel model = new FotoCategorieModel();
@@ -80,6 +83,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Create(FotoCategorieModel model)
         {
             if (!ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id)
         {
             using (FotoDbContext db = new FotoDbContext())
@@ -129,6 +134,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id, FotoCategorieModel d)
         {
             if (!ModelState.IsValid)

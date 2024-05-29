@@ -76,5 +76,13 @@ namespace net_il_mio_fotoalbum.Data
                 }
             }
         }
+
+        public static Foto PrendiPerTitolo(string titolo)
+        {
+            using (FotoDbContext db = new FotoDbContext())
+            {
+                return db.Foto.FirstOrDefault(t => t.Titolo == titolo);
+            }
+        }
     }
 }
