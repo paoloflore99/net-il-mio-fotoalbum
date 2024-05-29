@@ -1,31 +1,33 @@
-﻿@using net_il_mio_fotoalbum.Data;
-
+﻿﻿@using net_il_mio_fotoalbum.Data
 @model FotoCategorieModel;
 
+
 <div class="container">
-    <form asp-controller="Home" asp-action="Create" method="post">
+    <form asp-controller="Home" asp-action="Update" asp-all-route-id="@Model.Foto.Id" method="post">
         @Html.AntiForgeryToken()
         <div class="mb-3">
             <strong>Nome:</strong>
-            <input asp-for="Foto.Descrizione" class="d-block w-100" />
-        </div>
-        <div class="mb-3">
-            <strong>Cognome:</strong>
             <input asp-for="Foto.Titolo" class="d-block w-100" />
+            <span asp-validation-for=Foto.Titolo class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <strong>Età:</strong>
-            <input asp-for="Foto.Visibile" class="d-block w-100" /> <!--da mettere veo falso -->
+            <strong>Descrizione</strong>
+            <input asp-for="Foto.Descrizione" class="d-block w-100" />
+            <span class="text-danger" asp-validation-for=Foto.Descrizione></span>
         </div>
 
+        <div class="mb-3">
+        </div>
         <select asp-for="Categorias"
                 multiple="multiple"
                 size="10"
                 class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
                 asp-items="@Model.Categoria">
         </select>
+
+
         <div class="text-end">
-            <input type="submit" class="btn btn-small btn-info" value="Salva">
+            <input type="submit" class="btn btn-small btn-info" value="FotoInserita">
         </div>
     </form>
 </div>

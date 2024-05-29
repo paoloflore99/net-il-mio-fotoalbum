@@ -39,7 +39,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@foto.Titolo</h5>
                                 <p class="card-text">@foto.Descrizione</p>
-                                <a href="@Url.Action("PerId", "Pizza", new { id = foto.Id })" class="btn btn-info">Dettaglio pizza</a>
+                                <a href="@Url.Action("Update", "Home", new { id = foto.Id })" class="btn btn-info">Dettaglio foto</a>
                             </div>
                         </div>
                     </div>

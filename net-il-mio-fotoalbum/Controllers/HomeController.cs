@@ -78,7 +78,26 @@ namespace net_il_mio_fotoalbum.Controllers
                 model.Categoria = selectList;
                 return View("Create" , model);
             }
-            return null;
+
+            using (FotoDbContext db = new FotoDbContext())
+            {
+                Foto foto = new Foto();
+                model.Foto.Categorielist = new List<Categorie>();
+                if (ModelState.IsValid != null)
+                {
+                    foreach (string categori in model.Categorias)
+                    {
+                        Categorie categg = db.Categorie.FirstOrDefault(i => i.Id.ToString() == categori );
+                        if(categg != null)
+                        {
+                            model.Foto.Categorielist.Add(categg);
+                        }
+                    }
+                }
+                db.Foto.Add(model.Foto);
+                db.SaveChanges();
+            }
+            return View("Index");
         }
 
 
@@ -87,11 +106,58 @@ namespace net_il_mio_fotoalbum.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            return null;
+            using (FotoDbContext db = new FotoDbContext())
+            {
+                Foto foto = db.Foto.Where(foto => foto.Id == id).FirstOrDefault();
+                if (foto == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+
+                    List<Categorie> categgoria = FotoManager.GetAllCategorie();
+                    List<SelectListItem> selectList = new List<SelectListItem>();
+                    FotoCategorieModel model= new FotoCategorieModel();
+                    model.Foto = foto;
+                    foreach (var categ in categgoria)
+                    {
+                        selectList.Add(new SelectListItem()
+                        {
+                            Text = categ.Name,
+                            Value = categ.Id.ToString()
+                        });
+                        
+                    }
+                    model.Categoria = selectList;
+                    return View(model);
+                }
+            }
         }
 
 
-        public IActionResult Delite()
+        [HttpPost]
+        public IActionResult Update(int id, FotoCategorieModel d)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                List<Categorie> categoria = FotoManager.GetAllCategorie();
+                List<SelectListItem> selectList = new List<SelectListItem>();
+                FotoCategorieModel model = new FotoCategorieModel();
+                
+
+            }
+
+                return View();
+        }
+
+
+
+
+
+
+            public IActionResult Delite()
         {
             return null;
         }

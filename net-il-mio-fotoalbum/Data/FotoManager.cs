@@ -24,12 +24,7 @@ namespace net_il_mio_fotoalbum.Data
 
         public static Foto CreateFoto()
         {
-            using (FotoDbContext db = new FotoDbContext())
-            {
-                Foto foto = new Foto();
-                
-                return null;
-            }
+            return null;
         }
 
         public static Foto Update(int id)
