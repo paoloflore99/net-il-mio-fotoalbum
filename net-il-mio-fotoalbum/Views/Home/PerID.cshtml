@@ -1,1 +1,23 @@
-﻿
+﻿@using net_il_mio_fotoalbum.Data;
+@model Foto;
+
+        <div class="col-md-4 photo-card">
+            <div class="card">
+                <!--<img src="@Model.Titolo" class="card-img-top" alt="@Model.Titolo">-->
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Titolo</h5>
+                    <p class="card-text">@Model.Descrizione</p>
+                </div>
+            </div>
+        </div>
+
+
+
+<form asp-controller="Home" asp-action="Delite" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn-danger btn-sm btn"> cancella</button>
+        </form>
+
+
+<a href="@Url.Action("Update", "Home", new { id = Model.Id })" class="btn btn-info">Dettaglio foto</a>
+<a href="@Url.Action("Index", "Home")">Torna in Home </a>

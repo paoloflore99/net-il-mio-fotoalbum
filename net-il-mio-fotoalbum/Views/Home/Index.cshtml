@@ -24,7 +24,7 @@
     </div>
 
 
-<div class="main-content text-white bg-black">
+<div class="main-content  bg-black">
     <div class="container">
         <h1>Benvenuti nella Pagina Principale</h1>
         <p>Questo è il contenuto principale della pagina.</p>
@@ -39,7 +39,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@foto.Titolo</h5>
                                 <p class="card-text">@foto.Descrizione</p>
-                                <a href="@Url.Action("Update", "Home", new { id = foto.Id })" class="btn btn-info">Dettaglio foto</a>
+                                <a href="@Url.Action("PerID", "Home", new { id = foto.Id })" class="btn btn-info">Dettaglio foto</a>
                             </div>
                         </div>
                     </div>

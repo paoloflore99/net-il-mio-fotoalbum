@@ -39,7 +39,11 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             return View(FotoManager.GetAllFoto());
         }
-        
+        //Detaglio
+        public IActionResult PerID(int Id)
+        {
+            return View(FotoManager.Detaglioma(Id));
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -59,46 +63,32 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Create" ,model);
         }
        
+        private static void PopolaCategorie(FotoCategorieModel model)
+        {
+            List<Categorie> categgoria = FotoManager.GetAllCategorie();
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            foreach (var categ in categgoria)
+            {
+                selectList.Add(new SelectListItem()
+                {
+                    Text = categ.Name,
+                    Value = categ.Id.ToString()
+                });
+            }
+            model.Categoria = selectList;
+        }
+
 
         [HttpPost]
         public IActionResult Create(FotoCategorieModel model)
         {
             if (!ModelState.IsValid)
             {
-                using FotoDbContext db = new FotoDbContext();
-                List<Categorie> categgoria = FotoManager.GetAllCategorie();
-                List<SelectListItem> selectList = new List<SelectListItem>();
-                foreach (var categ in categgoria)
-                {
-                    selectList.Add(new SelectListItem()
-                    {
-                        Text = categ.Name,
-                        Value = categ.Id.ToString()
-                    });
-                }
-                model.Categoria = selectList;
+                PopolaCategorie(model);
                 return View("Create" , model);
             }
-
-            using (FotoDbContext db = new FotoDbContext())
-            {
-                Foto foto = new Foto();
-                model.Foto.Categorielist = new List<Categorie>();
-                if (ModelState.IsValid != null)
-                {
-                    foreach (string categori in model.Categorias)
-                    {
-                        Categorie categg = db.Categorie.FirstOrDefault(i => i.Id.ToString() == categori );
-                        if(categg != null)
-                        {
-                            model.Foto.Categorielist.Add(categg);
-                        }
-                    }
-                }
-                db.Foto.Add(model.Foto);
-                db.SaveChanges();
-            }
-            return View("Index");
+            FotoManager.Crea(model);
+            return RedirectToAction("Index");
         }
 
 
@@ -116,11 +106,11 @@ namespace net_il_mio_fotoalbum.Controllers
                 }
                 else
                 {
-
+                    
                     List<Categorie> categgoria = FotoManager.GetAllCategorie();
                     List<SelectListItem> selectList = new List<SelectListItem>();
                     FotoCategorieModel model= new FotoCategorieModel();
-                    model.Foto = foto;
+                   
                     foreach (var categ in categgoria)
                     {
                         selectList.Add(new SelectListItem()
@@ -130,6 +120,7 @@ namespace net_il_mio_fotoalbum.Controllers
                         });
                         
                     }
+                    model.Foto = foto;
                     model.Categoria = selectList;
                     return View(model);
                 }
@@ -142,19 +133,10 @@ namespace net_il_mio_fotoalbum.Controllers
         {
             if (!ModelState.IsValid)
             {
-                List<Categorie> categgoria = FotoManager.GetAllCategorie();
-                List<SelectListItem> selectList = new List<SelectListItem>();
-                FotoCategorieModel model = new FotoCategorieModel();
-                foreach (var categ in categgoria)
-                {
-                    selectList.Add(new SelectListItem()
-                    {
-                        Text = categ.Name,
-                        Value = categ.Id.ToString()
-                    });
-                    model.Categoria = selectList;
-                    return View("Update" , id);
-                }
+
+                
+                PopolaCategorie(d);
+                return View("Update", id);
 
             }
             using (FotoDbContext db = new FotoDbContext())
@@ -163,17 +145,21 @@ namespace net_il_mio_fotoalbum.Controllers
                 foto.Categorielist.Clear();
                 if (foto != null)
                 {
-                    foreach (string selezione in d.Categorias)
+                    if (d.Categorias != null)
                     {
-                        int selezionacategoria = int.Parse(selezione);
-                        Categorie categorie = db.Categorie.Where(x => x.Id == selezionacategoria).FirstOrDefault();
-                        foto.Categorielist.Add(categorie);
+                        foreach (string selezione in d.Categorias)
+                        {
+                            int selezionacategoria = int.Parse(selezione);
+                            Categorie categorie = db.Categorie.Where(x => x.Id == selezionacategoria).FirstOrDefault();
+                            foto.Categorielist.Add(categorie);
+                        }
                     }
+
                     foto.Titolo =d.Foto.Titolo;
                     foto.Descrizione = d.Foto.Descrizione;
                     foto.Visibile = d.Foto.Visibile;
                     db.SaveChanges();
-                    return View("index");
+                    return RedirectToAction("index");
                 }
                 else
                 {
@@ -187,9 +173,23 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
 
-            public IActionResult Delite()
+        public IActionResult Delite(int id)
         {
-            return null;
+            using (FotoDbContext db = new FotoDbContext())
+            {
+                Foto foto = db.Foto.Where(foto => foto.Id == id).Include(i => i.Categorielist).FirstOrDefault();
+                if (foto != null)
+                {
+                    db.Foto.Remove(foto);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
         }
 
     }
