@@ -37,6 +37,14 @@
                         <div class="card">
                             <!--<img src="@foto.Titolo" class="card-img-top" alt="@foto.Titolo">-->
                             <div class="card-body">
+                                @if (foto.ImgScr == null)
+                                {
+                                    <p class="text-black">nessuna immagine</p>
+                                }
+                                else
+                                {
+                                    <img src="@foto.ImgScr" class="" alt="@foto.ImgScr">
+                                }
                                 <h5 class="card-title">@foto.Titolo</h5>
                                 <p class="card-text">@foto.Descrizione</p>
                                 <a href="@Url.Action("PerID", "Home", new { id = foto.Id })" class="btn btn-info">Dettaglio foto</a>

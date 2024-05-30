@@ -49,9 +49,10 @@ namespace net_il_mio_fotoalbum.Controllers
                     Value = categ.Id.ToString()
                 });
             }
+            model.imgFi();
             model.Foto = new Foto();
             model.Categoria = selectList;
-            return Ok("Create", model);
+            return Ok( model);
         }
 
         private static void PopolaCategorie(FotoCategorieModel model)
@@ -77,7 +78,7 @@ namespace net_il_mio_fotoalbum.Controllers
             if (!ModelState.IsValid)
             {
                 PopolaCategorie(model);
-                return Ok("Create", model);
+                return Ok(model);
             }
             FotoManager.Crea(model);
             return RedirectToAction("Index");
@@ -130,7 +131,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
                 PopolaCategorie(d);
-                return Ok("Update", id);
+                return Ok( id);
 
             }
             using (FotoDbContext db = new FotoDbContext())
@@ -166,7 +167,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
 
-
+        [HttpDelete("{id}")]
         public IActionResult Delite(int id)
         {
             using (FotoDbContext db = new FotoDbContext())

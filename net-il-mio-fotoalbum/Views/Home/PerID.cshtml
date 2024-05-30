@@ -3,7 +3,15 @@
 
         <div class="col-md-4 photo-card">
             <div class="card">
-                <!--<img src="@Model.Titolo" class="card-img-top" alt="@Model.Titolo">-->
+        @if (Model.ImgScr != null)
+        {
+            <img  src="@Model.ImgScr" class="" alt="@Model.ImgScr">
+        }
+        else
+        {
+            <p>nessuna immagine</p>
+        }
+
                 <div class="card-body">
                     <h5 class="card-title">@Model.Titolo</h5>
                     <p class="card-text">@Model.Descrizione</p>

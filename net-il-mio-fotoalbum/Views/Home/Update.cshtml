@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <form asp-controller="Home" asp-action="Update" asp-all-route-id="@Model.Foto.Id" method="post">
+    <form asp-controller="Home" asp-action="Update" asp-all-route-id="@Model.Foto.Id" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
         <div class="mb-3">
             <strong>Nome:</strong>
@@ -24,7 +24,11 @@
                 class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
                 asp-items="@Model.Categoria">
         </select>
-
+        <div class="form-field">
+            <img src="@Model.Foto.ImgScr" class="" alt="@Model.Foto.ImgScr">
+            <label asp-for="ImgFile">Image file</label>
+            <input type="file" asp-for="ImgFile" />
+        </div>
 
         <div class="text-end">
             <input type="submit" class="btn btn-small btn-info" value="FotoInserita">

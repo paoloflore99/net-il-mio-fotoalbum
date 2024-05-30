@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -51,6 +52,7 @@ namespace net_il_mio_fotoalbum.Data
                         model.Foto.Categorielist.Add(categg);
                     }
                 }
+                
                 db.Foto.Add(model.Foto);
                 db.SaveChanges();
             }
@@ -84,5 +86,10 @@ namespace net_il_mio_fotoalbum.Data
                 return db.Foto.FirstOrDefault(t => t.Titolo == titolo);
             }
         }
+
     }
+
+    
 }
+
+

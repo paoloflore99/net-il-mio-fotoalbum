@@ -47,7 +47,7 @@ namespace net_il_mio_fotoalbum.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="ADMIN")]
+        //[Authorize(Roles ="ADMIN")]
         public IActionResult Create()
         {
             FotoCategorieModel model = new FotoCategorieModel();
@@ -83,7 +83,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult Create(FotoCategorieModel model)
         {
             if (!ModelState.IsValid)
@@ -91,7 +91,8 @@ namespace net_il_mio_fotoalbum.Controllers
                 PopolaCategorie(model);
                 return View("Create" , model);
             }
-            FotoManager.Crea(model);
+            model.imgFi();
+            FotoManager.Crea(model );
             return RedirectToAction("Index");
         }
 
@@ -99,9 +100,10 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id)
         {
+
             using (FotoDbContext db = new FotoDbContext())
             {
                 Foto foto = db.Foto.Where(foto => foto.Id == id).FirstOrDefault();
@@ -111,7 +113,6 @@ namespace net_il_mio_fotoalbum.Controllers
                 }
                 else
                 {
-                    
                     List<Categorie> categgoria = FotoManager.GetAllCategorie();
                     List<SelectListItem> selectList = new List<SelectListItem>();
                     FotoCategorieModel model= new FotoCategorieModel();
@@ -134,7 +135,7 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id, FotoCategorieModel d)
         {
             if (!ModelState.IsValid)
@@ -149,6 +150,7 @@ namespace net_il_mio_fotoalbum.Controllers
             {
                 Foto foto = db.Foto.Where(foto => foto.Id == id).Include(i => i.Categorielist).FirstOrDefault();
                 foto.Categorielist.Clear();
+
                 if (foto != null)
                 {
                     if (d.Categorias != null)
@@ -160,7 +162,8 @@ namespace net_il_mio_fotoalbum.Controllers
                             foto.Categorielist.Add(categorie);
                         }
                     }
-
+                    d.imgFi();
+                    foto.Imaggine = d.Foto.Imaggine;
                     foto.Titolo =d.Foto.Titolo;
                     foto.Descrizione = d.Foto.Descrizione;
                     foto.Visibile = d.Foto.Visibile;
@@ -197,6 +200,8 @@ namespace net_il_mio_fotoalbum.Controllers
             }
 
         }
+ 
+
 
     }
 }
